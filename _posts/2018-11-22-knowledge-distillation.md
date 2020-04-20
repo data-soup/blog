@@ -27,7 +27,7 @@ And we're not talking about ensembles. Ensembles are a great way to extract a lo
 
 In the end a model can have great score at training time, but we might want to: lower its size (for embedded systems), increase inference speed or simply reduce complexity. Geoffrey Hinton talks about reducing its "memory foot print":
 
-![Larval Stage of Eels from cflas.org](/images/kd-dist/moray-larvae.jpg)
+![Larval Stage of Eels from cflas.org](kd-dist/moray-larvae.jpg)
 
 > Many insects have a larval form that is optimized for extracting energy and nutrients from the environment and a completely different adult form that is optimized for the very different requirements of traveling and reproduction. In large-scale machine learning, we typically use very similar models for the training stage and the deployment stage despite their very different requirements (...) ([Distilling the Knowledge in a Neural Network](https://arxiv.org/pdf/1503.02531.pdf))
 
@@ -39,7 +39,7 @@ The authors continue that we are identifying knowledge with the values of the we
 
 Knowledge distillation's goal is to transfer the learning from one performant and heavy teacher to a more compact student.
 
-![](/images/kd-dist/teacher-student.png)
+![](kd-dist/teacher-student.png)
 
 To do so, we look at the teacher's softmax layer, magnify it and the student learns how to produce them. We need to magnify because the softmax layer will smash down to zero the least probable classes and rises close to one the most probable (like one hot vector). We can also keep the relative probabilities between classes, where a motocycle and a bicycle share more similarities on the softmax layer rather than a book. We can do it by raising the temperature T.
 

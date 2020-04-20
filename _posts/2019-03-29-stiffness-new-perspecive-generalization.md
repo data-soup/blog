@@ -19,11 +19,11 @@ This paper aims at improving our understanding of how neural networks generalize
  
 Stiffness is expressed as the expected sign of the gradients `g`:
 
-![Formula 5, page 2](/images/stiffness/formula_stiffness.png)
+![Formula 5, page 2](stiffness/formula_stiffness.png)
 
 A weight update that improves the loss for **X_1** and **X_2** is stiff and characterized as anti-stiff if the loss beneficiate for one of the points and doesn't help the other.
 
-![Figure 1, page 3](/images/stiffness/figure1_stiffness_overview.png)
+![Figure 1, page 3](stiffness/figure1_stiffness_overview.png)
 
 The question is now how do we choose **X_1** and **X_2**. Authors explore two ways: by class membership or by distance.
 
@@ -31,24 +31,24 @@ The question is now how do we choose **X_1** and **X_2**. Authors explore two wa
 
 We can look at how a gradient update on a point in class A will affect another point's loss belonging to class B. In the paper they craft a *class stiffness matrix`, which is the average of stiffness between each point grouped by class:
 
-![Formula 6, page 3](/images/stiffness/formula06-class-membership.png)
+![Formula 6, page 3](stiffness/formula06-class-membership.png)
 
 The diagonal of this matrix represent the model's within class generalization capability. You can find an example of stiffness class matrix at different steps of the training stage:
 
-![Figugre 6, page 5](/images/stiffness/figure06-page5.png)
+![Figugre 6, page 5](stiffness/figure06-page5.png)
 
 At early stages, the stiffness is high between members of the same classes (hence the red diagonal). The majority of the cells raises their stiffness until reaching the point of overfitting: stiffness reaches 0.
 
 ### Stiffness as a function distance and learning rate
 Stiffness is then studied through the distance lens, they distinguish two kinds of distance: pixel-wise (in the input space) and layerwise (in the representational space).
 
-![Figure 9, page 6](/images/stiffness/figure9_depending_on_distance.png)
+![Figure 9, page 6](stiffness/figure9_depending_on_distance.png)
 
 > The general pattern visible in Figure 9 is that there exists a critical distance within which input data points tend to move together under gradient updates, i.e. have positive stiffness. This holds true for all layers in the network, with the tendency of deeper layers to have smaller stiff domain sizes.
 
 Authors define stiff regions as "regions of the data space that move together when a gradient update is applied".
 
-![Figure 10, page 7](/images/stiffness/figure10-stiffdomain-learningrate.png)
+![Figure 10, page 7](stiffness/figure10-stiffdomain-learningrate.png)
 
 We can see that a higher learning rate increase the size of the stiff regions which suggests that higher learning rates help generalization.
 

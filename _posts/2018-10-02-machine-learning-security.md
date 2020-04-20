@@ -18,7 +18,7 @@ This is a shallow overview of the security of machine learning systems. Within a
 
 The adversarial examples (AE) topic is fascinating and an [active](https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=adversarial+examples&terms-0-field=title&classification-computer_science=y&classification-physics_archives=all&classification-statistics=y&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&size=50&order=-announced_date_first) area of research. It raises fundamental questions related to the limits and the security of our current gradient-based classifier architectures. AE are cleverly crafted data designed to be misclassified by a targeted model. They are "designed to cause the model to make a mistake" ([OpenAI](https://blog.openai.com/adversarial-example-research/), Attacking Machine Learning with Adversarial Examples). The image on the right is an adversarial example.
 
-<img src="/images/ml-sec/adversarial-example-dog.png" width="600">
+<img src="ml-sec/adversarial-example-dog.png" width="600">
 
 The difference between the left and the rightmost dog is probably unperceptible. This can be due to our eyes limitations (or the bit depth of your monitor).
 And yet they are crucial to various models. The last image is indeed [considered](https://github.com/maxpv/maxpv.github.io/blob/master/notebooks/Adversarial_ResNet50.ipynb) as a `plane` by a `ResNet50` initialized with default training weight in Keras, and one AE will probably work on another architecture. The only difference are small pixels values, amplified in the second picture.

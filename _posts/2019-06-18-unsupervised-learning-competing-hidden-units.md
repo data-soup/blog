@@ -30,11 +30,11 @@ Authors managed to train their model on MNIST and CIFAR-10 with only forward pas
 
 The blue rectangles are the authors "biological learning algorithm". First, the data is going through it, without any label or any indication on the task it'll be used for. Once trained a fully connected network is appended on top of it in order to specialize the model and make the desired predictions. This part is trained using backpropagation.
 
-![figure 01, page 02](/images/competing-hidden-units/fig01-training-schema.png)
+![figure 01, page 02](competing-hidden-units/fig01-training-schema.png)
 
 Usually to compute the activity of the hidden layer `hμ`, we project the input `vi` on it by multiplying it with a matrix `Wμi` and then apply non-linearity. In this new technique the `hμ` activity is computed solving this differential equation:
 
-![equation 08, page 04](/images/competing-hidden-units/eq8-learning-rule.png)
+![equation 08, page 04](competing-hidden-units/eq8-learning-rule.png)
 
 - `μ` is the index of the hidden layer we want to update
 - `τ` is a timescale of the process
@@ -55,7 +55,7 @@ In an experiment on MNIST and CIFAR-10, the authors trained 2000 hidden units us
 
 The training error on MNIST can be seen in the rightmost figure of the image below (BP stands for backpropagation and BIO for the proposed approach). We can see that despite a higher training error, the testing error is very close to the model trained end-to-end. 
 
-![figure 03, page 05](/images/competing-hidden-units/fig-03-mnist-in-action.png)
+![figure 03, page 05](competing-hidden-units/fig-03-mnist-in-action.png)
 
 On MNIST, we can see that the features learned by the proposed biological learning algorithm (left figure) are different from the one trained with backpropagation (middle figure).
 
@@ -67,7 +67,7 @@ and Center.
 
 Similarly for CIFAR-10:
 
-![figure 07, page 07](/images/competing-hidden-units/fig-07-cifar-in-action.png)
+![figure 07, page 07](competing-hidden-units/fig-07-cifar-in-action.png)
 
 
 ### tldr
