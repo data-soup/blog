@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   fastpages: &fastpages
     working_dir: /data
@@ -13,7 +13,6 @@ services:
       options:
         max-size: 50m
     stdin_open: true
-    tty: true
     volumes:
       - .:/data/
 
