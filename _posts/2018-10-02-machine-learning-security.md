@@ -3,7 +3,6 @@ title: "Machine Learning's Security Layer, an Overview"
 date: 2018-10-02T22:39:28+02:00
 draft: false
 layout: post
-categories: [security]
 ---
 
 This is a shallow overview of the security of machine learning systems. Within a few scrolls we'll go through:
@@ -18,7 +17,7 @@ This is a shallow overview of the security of machine learning systems. Within a
 
 The adversarial examples (AE) topic is fascinating and an [active](https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=adversarial+examples&terms-0-field=title&classification-computer_science=y&classification-physics_archives=all&classification-statistics=y&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&size=50&order=-announced_date_first) area of research. It raises fundamental questions related to the limits and the security of our current gradient-based classifier architectures. AE are cleverly crafted data designed to be misclassified by a targeted model. They are "designed to cause the model to make a mistake" ([OpenAI](https://blog.openai.com/adversarial-example-research/), Attacking Machine Learning with Adversarial Examples). The image on the right is an adversarial example.
 
-<img src="ml-sec/adversarial-example-dog.png" width="600">
+<img src="{{ site.baseurl }}/images/ml-sec/adversarial-example-dog.png" width="600">
 
 The difference between the left and the rightmost dog is probably unperceptible. This can be due to our eyes limitations (or the bit depth of your monitor).
 And yet they are crucial to various models. The last image is indeed [considered](https://github.com/maxpv/maxpv.github.io/blob/master/notebooks/Adversarial_ResNet50.ipynb) as a `plane` by a `ResNet50` initialized with default training weight in Keras, and one AE will probably work on another architecture. The only difference are small pixels values, amplified in the second picture.
@@ -34,7 +33,7 @@ So our dog can be misclassified as anything we wish with any arbitrary accuracy.
 It has been shown that it works in the physical world too, for instance, if we [print](https://arxiv.org/abs/1607.02533) them. A famous example is tricking a car's sensor to see
 a speed limit instead of a STOP sign. The output of a model can be manipulated into making to some extent, a desired decision or at generating unhandled behavior by the application that relies on it.
 
-![https://arxiv.org/pdf/1602.02697.pdf page 3](/images/ml-sec/street-signs.jpg )
+![https://arxiv.org/pdf/1602.02697.pdf page 3]({{ site.baseurl }}/images/ml-sec/street-signs.jpg )
 
 By the end of 2017 some showed that modifying one pixel can be enough in some cases. If you want to know more about this you can read
 the paper [One pixel attack for fooling deep neural networks](https://arxiv.org/abs/1710.08864), enjoy a high-level presentation by
@@ -61,7 +60,7 @@ Depending on the opponent's knowledge, there are three ways of crafting adversar
 
 A simplified copy of a diagram by Papernot. et al in The Limitations of Deep Learning in Adversarial Settings (page 3):
 
-<img src="/images/ml-sec/threat-model-taxonomy.png" alt="Simplified copy of a diagram by Papernot. et al in The Limitations of Deep Learning in Adversarial Settings (page 3)" width="600">
+<img src="{{ site.baseurl }}/images/ml-sec/threat-model-taxonomy.png" alt="Simplified copy of a diagram by Papernot. et al in The Limitations of Deep Learning in Adversarial Settings (page 3)" width="600">
 
 One example of **gradient-base attack** consists in computing the loss' gradient function an image. Following by a tiny step in the opposite gradient's direction. In order to keep valid RGB values, the image might be clipped between 0 and 255 and the value of the noise between 0 and a small value, M.
 This value M determine the maximum difference between the original image and the adversarial one, so M should be smaller than a human's color sensibility (through a monitor). M smaller than 5 should be fine.
@@ -99,7 +98,7 @@ Trying to rebuild someone's else model or retrieve data that were used to train 
 
 We'll summarize briefly the [Black Box Attacks](https://arxiv.org/abs/1602.02697) by Nicolas Papernot et al. If you want to dig this subject you might enjoy reading it. The main idea described here is to create a local substitute neural network trained with a substitute dataset crafted by the adversary. Then, using gradient-based techniques adversarial examples can be generated.
 
-<img src="/images/ml-sec/flowchart-black-box-attack.png">
+<img src="{{ site.baseurl }}/images/ml-sec/flowchart-black-box-attack.png">
 
 There's no need for a labeled dataset, which can be expensive to produce. The substitute dataset is labeled using the remote DNN's output.
 Then the local dataset is locally augmented through a technique called *Jacobian-based Dataset Augmentation*.
@@ -141,7 +140,7 @@ Poisoning 3% of a training set managed to drop the test accuracy by 11% ([Certif
 
 Label flipping attack the objective is to maximize the loss function if a subset of the training example's label is flipped, this is basically done by gradient ascent:
 
-<img src="/images/ml-sec/clean-label-attack.png" alt="Ali Shafahi et al. 2018 (Figure 1-b)" width="400">
+<img src="{{ site.baseurl }}/images/ml-sec/clean-label-attack.png" alt="Ali Shafahi et al. 2018 (Figure 1-b)" width="400">
 
 > An attacker first chooses a target instance from the test set; a successful poisoning attack causes this target example to be misclassified during test time. Next, the attacker samples a base instance from the base class, and makes imperceptible changes to it to craft a poison instance; this poison is injected into the training data with the intent of fooling the model into labeling the target instance with the base label at test time. Finally, the model is trained on the poisoned dataset (clean dataset + poison instances). If during test time the model mistakes the target instance as being in the base class, then the poisoning attack is considered successful
 > [Poison Frogs! Targeted Clean-Label Poisoning Attacks on Neural Networks](https://arxiv.org/pdf/1804.00792.pdf)
@@ -151,7 +150,7 @@ Label flipping attack the objective is to maximize the loss function if a subset
 
 ### Fully homomorphic encryption
 
-![Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25](/images/ml-sec/fhe-neuralnetwork.png)
+![Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25]({{ site.baseurl }}/images/ml-sec/fhe-neuralnetwork.png)
 
 Fully homomorphic encryption is an encryption scheme that preserves the operation on data through encryption and decryption function. If the scheme is preserved over the addition, encrypting a sum or summing the encrypted members will give the same result.
 This means that you can encrypt your data locally and send it to a server, let it do a job using only the supported operators and return you the encrypted result. You don't need to trust the server since it won't understand what it is manipulating.
