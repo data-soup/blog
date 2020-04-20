@@ -3,6 +3,7 @@ title: "Overview of One Year of Lottery Ticket Research"
 date: 2020-02-13T22:39:28+02:00
 draft: false
 layout: post
+categories: [paper summary]
 ---
 
 Winning tickets were [discovered in March 2018](https://arxiv.org/abs/1803.03635) and presented at ICRL the same year. It drawed a lot of attention. It sheds light on yet unknown underlying properties of neural networks and seems to be one of the keys for faster training and smaller models. Overall flipping on the head how we approach neural net architecture design. 
@@ -45,7 +46,7 @@ If the subnetwork produced by this technique matches the original network's perf
 - [red] Same as the orange line without step 5
 - [green] Same as blue without step 5
 
-![Figure 4-b of 803.03635](/winning-ticket/figure4-b.png)
+![Figure 4-b of 803.03635](/images/winning-ticket/figure4-b.png)
 
  We can see that step 4 is the key as the green and blue lines are consistently performing better and are trained faster than randomly re-initialized networks. They also found similar results with convolutional networks like VGG and ResNet on MNIST and CIFAR10 (there are *many* more details in the [original paper](https://arxiv.org/abs/1803.03635)).
 
@@ -59,7 +60,7 @@ But the method above seems to struggle against deeper networks. In a [follow-up 
 
 The graph below plot performances against different levels of sparsity of deep models rewound (iteration at which we reset the weights) with different values. We can see that rewinding at iteration 0 does not perform better than the original network whereas rewinding at higher iteration does:
 
-![](/winning-ticket/figure8-followup.png)
+![](/images/winning-ticket/figure8-followup.png)
 
 Those deeper models were resisting the winning ticket recipe above but found something interesting after looking at their *stability*:
 
@@ -69,7 +70,7 @@ subnetwork trained in isolation and the weights of the same subnetwork when trai
 
 The table below shows stability for different networks. *Warmup* means that the learning rate is scheduled to increase slowly during training, possibly reducing the noise of the optimizer. *IMP* is the original recipe to generate winning tickets:
 
-![](/winning-ticket/figure3-followup.png)
+![](/images/winning-ticket/figure3-followup.png)
 
 We can see that IMP fails at fiding winning tickets in deeper networks without changing the learning rate. We can also see that there's a link between performances and the stabilities measures. "Winning tickets are more stable than the random subnetworks".
 
@@ -81,7 +82,7 @@ So far winning tickets have been tested on the same datasets and on computer vis
 
 Facebook [published a paper](https://arxiv.org/abs/1906.02773) (June 2019) tested the winning ticket evaluation and transfer across six visual datasets. For instance, testing generating winning tickets on ImageNet and testing it others (like CIFAR-100):
 
-![figure 4-e of 1906.02773](/winning-ticket/figure4-e.png)
+![figure 4-e of 1906.02773](/images/winning-ticket/figure4-e.png)
 
 They observed that winning tickets generalize across all datasets with (at least) close performances than the original one. And that winning tickets generated on larger datasets generalized better than the other ones, probably due to the number of classes in the original model. Finally, this paper also tested the transfer successfully across different optimizers successfully.
 
