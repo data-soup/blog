@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks | data soup</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks." />
+<meta property="og:description" content="This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks." />
+<link rel="canonical" href="https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html" />
+<meta property="og:site_name" content="data soup" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-28T16:00:55-05:00" />
+<script type="application/ld+json">
+{"description":"This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks.","headline":"Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks","dateModified":"2019-03-28T16:00:55-05:00","datePublished":"2019-03-28T16:00:55-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html"},"url":"https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks | data soup</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks." />
+<meta property="og:description" content="This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks." />
+<link rel="canonical" href="https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html" />
+<meta property="og:site_name" content="data soup" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-28T16:00:55-05:00" />
+<script type="application/ld+json">
+{"description":"This is a summary of Stiffness: A New Perspective on Generalization in Neural Networks.","headline":"Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks","dateModified":"2019-03-28T16:00:55-05:00","datePublished":"2019-03-28T16:00:55-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html"},"url":"https://data-soup.github.io/blog/2019/03/28/stiffness-new-perspecive-generalization.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">data soup</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-03-28T16:00:55-05:00" itemprop="datePublished">
+        Mar 28, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This is a summary of <a href="https://arxiv.org/pdf/1901.09491.pdf">Stiffness: A New Perspective on Generalization in Neural Networks</a>.</p>
+
+<hr />
+
+<h3 id="stiffness">Stiffness?</h3>
+
+<p>This paper aims at improving our understanding of how neural networks generalize from the point of view of <em>stiffness</em>. The intuition behind stiffness is how a gradient update on one point affects another:</p>
+
+<blockquote>
+  <p>[it] characterizes the amount of correlation between changes in loss on the two due to the application of a gradient update based on one of them. (4.1, Results and discussion)</p>
+</blockquote>
+
+<p>Stiffness is expressed as the expected sign of the gradients <code class="highlighter-rouge">g</code>:</p>
+
+<p><img src="/blog/images/stiffness/formula_stiffness.png" alt="Formula 5, page 2" /></p>
+
+<p>A weight update that improves the loss for <strong>X_1</strong> and <strong>X_2</strong> is stiff and characterized as anti-stiff if the loss beneficiate for one of the points and doesn’t help the other.</p>
+
+<p><img src="/blog/images/stiffness/figure1_stiffness_overview.png" alt="Figure 1, page 3" /></p>
+
+<p>The question is now how do we choose <strong>X_1</strong> and <strong>X_2</strong>. Authors explore two ways: by class membership or by distance.</p>
+
+<h3 id="stiffness-based-on-class-membership">Stiffness based on class membership</h3>
+
+<p>We can look at how a gradient update on a point in class A will affect another point’s loss belonging to class B. In the paper they craft a *class stiffness matrix`, which is the average of stiffness between each point grouped by class:</p>
+
+<p><img src="/blog/images/stiffness/formula06-class-membership.png" alt="Formula 6, page 3" /></p>
+
+<p>The diagonal of this matrix represent the model’s within class generalization capability. You can find an example of stiffness class matrix at different steps of the training stage:</p>
+
+<p><img src="/blog/images/stiffness/figure06-page5.png" alt="Figugre 6, page 5" /></p>
+
+<p>At early stages, the stiffness is high between members of the same classes (hence the red diagonal). The majority of the cells raises their stiffness until reaching the point of overfitting: stiffness reaches 0.</p>
+
+<h3 id="stiffness-as-a-function-distance-and-learning-rate">Stiffness as a function distance and learning rate</h3>
+<p>Stiffness is then studied through the distance lens, they distinguish two kinds of distance: pixel-wise (in the input space) and layerwise (in the representational space).</p>
+
+<p><img src="/blog/images/stiffness/figure9_depending_on_distance.png" alt="Figure 9, page 6" /></p>
+
+<blockquote>
+  <p>The general pattern visible in Figure 9 is that there exists a critical distance within which input data points tend to move together under gradient updates, i.e. have positive stiffness. This holds true for all layers in the network, with the tendency of deeper layers to have smaller stiff domain sizes.</p>
+</blockquote>
+
+<p>Authors define stiff regions as “regions of the data space that move together when a gradient update is applied”.</p>
+
+<p><img src="/blog/images/stiffness/figure10-stiffdomain-learningrate.png" alt="Figure 10, page 7" /></p>
+
+<p>We can see that a higher learning rate increase the size of the stiff regions which suggests that higher learning rates help generalization.</p>
+
+<h3 id="tldr">tldr</h3>
+
+<ul>
+  <li>Stiffness quantify how much gradient update on one group of point affects another</li>
+  <li>Stiffness is tightly linked to generalization</li>
+  <li>Stiffness tends to 0 when the system overfit</li>
+  <li>Higher learning rate increases the area under which points are moving together</li>
+</ul>
+
+<hr />
+
+<table>
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Organization</th>
+      <th>Previous work</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://stanford.edu/~sfort1/">Stanislav Fort</a></td>
+      <td>Google AI Resident, Google AI Zurich</td>
+      <td><a href="https://arxiv.org/pdf/1807.02581.pdf">The Goldilocks zone: Towards better understanding of neural network loss landscapes</a></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Paweł Krzysztof Nowak</td>
+      <td>Google AI Resident</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://ai.google/research/people/SriniNarayanan">Srini Narayanan</a></td>
+      <td>Google AI Resident</td>
+      <td> </td>
+      <td><a href="https://ai.google/research/pubs/pub47017">Points, Paths, and Playscapes: Large-scale Spatial Language Understanding Tasks Set in the Real World</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Complementary resources:</p>
+
+<ul>
+  <li>Manifold Mixup: Better Representations by Interpolating Hidden States - https://arxiv.org/abs/1806.05236 (cited in the article)</li>
+</ul>
+
+  </div><a class="u-url" href="/blog/2019/03/28/stiffness-new-perspecive-generalization.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>🍜</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
