@@ -137,11 +137,11 @@ window.onload = wrap_img;
 
 <p>The blue rectangles are the authors “biological learning algorithm”. First, the data is going through it, without any label or any indication on the task it’ll be used for. Once trained a fully connected network is appended on top of it in order to specialize the model and make the desired predictions. This part is trained using backpropagation.</p>
 
-<p><img src="/images/competing-hidden-units/fig01-training-schema.png" alt="figure 01, page 02" /></p>
+<p><img src="competing-hidden-units/fig01-training-schema.png" alt="figure 01, page 02" /></p>
 
 <p>Usually to compute the activity of the hidden layer <code class="highlighter-rouge">hμ</code>, we project the input <code class="highlighter-rouge">vi</code> on it by multiplying it with a matrix <code class="highlighter-rouge">Wμi</code> and then apply non-linearity. In this new technique the <code class="highlighter-rouge">hμ</code> activity is computed solving this differential equation:</p>
 
-<p><img src="/images/competing-hidden-units/eq8-learning-rule.png" alt="equation 08, page 04" /></p>
+<p><img src="competing-hidden-units/eq8-learning-rule.png" alt="equation 08, page 04" /></p>
 
 <ul>
   <li><code class="highlighter-rouge">μ</code> is the index of the hidden layer we want to update</li>
@@ -166,7 +166,7 @@ window.onload = wrap_img;
 
 <p>The training error on MNIST can be seen in the rightmost figure of the image below (BP stands for backpropagation and BIO for the proposed approach). We can see that despite a higher training error, the testing error is very close to the model trained end-to-end.</p>
 
-<p><img src="/images/competing-hidden-units/fig-03-mnist-in-action.png" alt="figure 03, page 05" /></p>
+<p><img src="competing-hidden-units/fig-03-mnist-in-action.png" alt="figure 03, page 05" /></p>
 
 <p>On MNIST, we can see that the features learned by the proposed biological learning algorithm (left figure) are different from the one trained with backpropagation (middle figure).</p>
 
@@ -180,7 +180,7 @@ and Center.</p>
 
 <p>Similarly for CIFAR-10:</p>
 
-<p><img src="/images/competing-hidden-units/fig-07-cifar-in-action.png" alt="figure 07, page 07" /></p>
+<p><img src="competing-hidden-units/fig-07-cifar-in-action.png" alt="figure 07, page 07" /></p>
 
 <h3 id="tldr">tldr</h3>
 

@@ -152,7 +152,7 @@ window.onload = wrap_img;
   <li>[green] Same as blue without step 5</li>
 </ul>
 
-<p><img src="/images/winning-ticket/figure4-b.png" alt="Figure 4-b of 803.03635" /></p>
+<p><img src="winning-ticket/figure4-b.png" alt="Figure 4-b of 803.03635" /></p>
 
 <p>We can see that step 4 is the key as the green and blue lines are consistently performing better and are trained faster than randomly re-initialized networks. They also found similar results with convolutional networks like VGG and ResNet on MNIST and CIFAR10 (there are <em>many</em> more details in the <a href="https://arxiv.org/abs/1803.03635">original paper</a>).</p>
 
@@ -168,7 +168,7 @@ window.onload = wrap_img;
 
 <p>The graph below plot performances against different levels of sparsity of deep models rewound (iteration at which we reset the weights) with different values. We can see that rewinding at iteration 0 does not perform better than the original network whereas rewinding at higher iteration does:</p>
 
-<p><img src="/images/winning-ticket/figure8-followup.png" alt="" /></p>
+<p><img src="winning-ticket/figure8-followup.png" alt="" /></p>
 
 <p>Those deeper models were resisting the winning ticket recipe above but found something interesting after looking at their <em>stability</em>:</p>
 
@@ -192,7 +192,7 @@ subnetwork trained in isolation and the weights of the same subnetwork when trai
 
 <p>Facebook <a href="https://arxiv.org/abs/1906.02773">published a paper</a> (June 2019) tested the winning ticket evaluation and transfer across six visual datasets. For instance, testing generating winning tickets on ImageNet and testing it others (like CIFAR-100):</p>
 
-<p><img src="/images/winning-ticket/figure4-e.png" alt="figure 4-e of 1906.02773" /></p>
+<p><img src="winning-ticket/figure4-e.png" alt="figure 4-e of 1906.02773" /></p>
 
 <p>They observed that winning tickets generalize across all datasets with (at least) close performances than the original one. And that winning tickets generated on larger datasets generalized better than the other ones, probably due to the number of classes in the original model. Finally, this paper also tested the transfer successfully across different optimizers successfully.</p>
 

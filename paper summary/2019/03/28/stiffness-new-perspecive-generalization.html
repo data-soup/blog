@@ -121,11 +121,11 @@ window.onload = wrap_img;
 
 <p>Stiffness is expressed as the expected sign of the gradients <code class="highlighter-rouge">g</code>:</p>
 
-<p><img src="/images/stiffness/formula_stiffness.png" alt="Formula 5, page 2" /></p>
+<p><img src="stiffness/formula_stiffness.png" alt="Formula 5, page 2" /></p>
 
 <p>A weight update that improves the loss for <strong>X_1</strong> and <strong>X_2</strong> is stiff and characterized as anti-stiff if the loss beneficiate for one of the points and doesn’t help the other.</p>
 
-<p><img src="/images/stiffness/figure1_stiffness_overview.png" alt="Figure 1, page 3" /></p>
+<p><img src="stiffness/figure1_stiffness_overview.png" alt="Figure 1, page 3" /></p>
 
 <p>The question is now how do we choose <strong>X_1</strong> and <strong>X_2</strong>. Authors explore two ways: by class membership or by distance.</p>
 
@@ -133,18 +133,18 @@ window.onload = wrap_img;
 
 <p>We can look at how a gradient update on a point in class A will affect another point’s loss belonging to class B. In the paper they craft a *class stiffness matrix`, which is the average of stiffness between each point grouped by class:</p>
 
-<p><img src="/images/stiffness/formula06-class-membership.png" alt="Formula 6, page 3" /></p>
+<p><img src="stiffness/formula06-class-membership.png" alt="Formula 6, page 3" /></p>
 
 <p>The diagonal of this matrix represent the model’s within class generalization capability. You can find an example of stiffness class matrix at different steps of the training stage:</p>
 
-<p><img src="/images/stiffness/figure06-page5.png" alt="Figugre 6, page 5" /></p>
+<p><img src="stiffness/figure06-page5.png" alt="Figugre 6, page 5" /></p>
 
 <p>At early stages, the stiffness is high between members of the same classes (hence the red diagonal). The majority of the cells raises their stiffness until reaching the point of overfitting: stiffness reaches 0.</p>
 
 <h3 id="stiffness-as-a-function-distance-and-learning-rate">Stiffness as a function distance and learning rate</h3>
 <p>Stiffness is then studied through the distance lens, they distinguish two kinds of distance: pixel-wise (in the input space) and layerwise (in the representational space).</p>
 
-<p><img src="/images/stiffness/figure9_depending_on_distance.png" alt="Figure 9, page 6" /></p>
+<p><img src="stiffness/figure9_depending_on_distance.png" alt="Figure 9, page 6" /></p>
 
 <blockquote>
   <p>The general pattern visible in Figure 9 is that there exists a critical distance within which input data points tend to move together under gradient updates, i.e. have positive stiffness. This holds true for all layers in the network, with the tendency of deeper layers to have smaller stiff domain sizes.</p>
@@ -152,7 +152,7 @@ window.onload = wrap_img;
 
 <p>Authors define stiff regions as “regions of the data space that move together when a gradient update is applied”.</p>
 
-<p><img src="/images/stiffness/figure10-stiffdomain-learningrate.png" alt="Figure 10, page 7" /></p>
+<p><img src="stiffness/figure10-stiffdomain-learningrate.png" alt="Figure 10, page 7" /></p>
 
 <p>We can see that a higher learning rate increase the size of the stiff regions which suggests that higher learning rates help generalization.</p>
 
