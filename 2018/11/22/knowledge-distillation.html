@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What is Knowledge Distillation? | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="What is Knowledge Distillation?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<meta property="og:description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<link rel="canonical" href="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-22T07:37:55-06:00" />
+<script type="application/ld+json">
+{"description":"Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What is Knowledge Distillation? | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="What is Knowledge Distillation?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<meta property="og:description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<link rel="canonical" href="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-22T07:37:55-06:00" />
+<script type="application/ld+json">
+{"description":"Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="fastpages" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">What is Knowledge Distillation?</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-11-22T07:37:55-06:00" itemprop="datePublished">
+        Nov 22, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.</p>
+
+<h2 id="️-weight-matters">⚖️ Weight Matters</h2>
+
+<p>Today’s models can be quite large, here are some of the top models for the ImageNet dataset:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Weights (millions)</th>
+      <th>Size (32-bits floats)</th>
+      <th>Size  (16-bits floats)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MobileNet-224</td>
+      <td>4.3</td>
+      <td>17.2 Mo</td>
+      <td>8.6 Mo</td>
+    </tr>
+    <tr>
+      <td>VGG16</td>
+      <td>143.7</td>
+      <td>574.8  Mo</td>
+      <td>287.4 Mo</td>
+    </tr>
+    <tr>
+      <td>InceptionV3</td>
+      <td>23.9</td>
+      <td>95.6 Mo</td>
+      <td>47.8  Mo</td>
+    </tr>
+    <tr>
+      <td>ResNet-50</td>
+      <td>25.6</td>
+      <td>102.4 Mo</td>
+      <td>51.2 Mo</td>
+    </tr>
+    <tr>
+      <td>InceptionResNetV2</td>
+      <td>55.9</td>
+      <td>223.6 Mo</td>
+      <td>111.8 Mo</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>The models were instantiated via <code class="highlighter-rouge">keras.applications</code> module with top layers, the number of parameters are given by <code class="highlighter-rouge">summary()</code>.</em></p>
+
+<p>It seems fair to say that simple computer vision models weigh easily ~100Mo. A hundred Mo <em>just</em> to be able to make an inference isn’t a viable solution for an end product. A remote API can do the trick, but now your product needs to add encryption, you need to store and upload data, the user needs to have a reliable internet connection to have a decent speed. We can train a narrower network, they’ll probably fit in a small memory. But chances are they won’t be good enough at extracting complex features.</p>
+
+<p>And we’re not talking about ensembles. Ensembles are a great way to extract a lot of knowledge from the training data. But at test time it can be too expensive to run a hundred different models in parallel. The knowledge per parameter ratio is quite low.</p>
+
+<p>In the end a model can have great score at training time, but we might want to: lower its size (for embedded systems), increase inference speed or simply reduce complexity. Geoffrey Hinton talks about reducing its “memory foot print”:</p>
+
+<p><img src="images/kd-dist/moray-larvae.jpg" alt="Larval Stage of Eels from cflas.org" /></p>
+
+<blockquote>
+  <p>Many insects have a larval form that is optimized for extracting energy and nutrients from the environment and a completely different adult form that is optimized for the very different requirements of traveling and reproduction. In large-scale machine learning, we typically use very similar models for the training stage and the deployment stage despite their very different requirements (…) (<a href="https://arxiv.org/pdf/1503.02531.pdf">Distilling the Knowledge in a Neural Network</a>)</p>
+</blockquote>
+
+<p>Training a smaller model from a larger one is called knowledge distillation.</p>
+
+<h2 id="-distillation">🧪 Distillation</h2>
+
+<p>The authors continue that we are identifying knowledge with the values of the weights which makes it “hard to see how we can change the form of the model but keep the same knowledge”. And remind us that we can see knowledge as a mapping from input to output.</p>
+
+<p>Knowledge distillation’s goal is to transfer the learning from one performant and heavy teacher to a more compact student.</p>
+
+<p><img src="images/kd-dist/teacher-student.png" alt="" /></p>
+
+<p>To do so, we look at the teacher’s softmax layer, magnify it and the student learns how to produce them. We need to magnify because the softmax layer will smash down to zero the least probable classes and rises close to one the most probable (like one hot vector). We can also keep the relative probabilities between classes, where a motocycle and a bicycle share more similarities on the softmax layer rather than a book. We can do it by raising the temperature T.</p>
+
+<p><img src="http://bit.ly/2P2INsc" alt="" /></p>
+
+<p>To transfer knowledge, a student is trained on the soften probabilities (T»1) produced by a larger teacher. When the temperature T is smaller than one, the most expected classes will impact the most the final probability. Similarly, when increasing the temperature the probabilities will be softer/flattened across classes -you can have <a href="https://www.desmos.com/calculator/gdcy4dvaje">here</a> an intuition of the influence of temperature on a single <code class="highlighter-rouge">exp()</code>.</p>
+
+<p>First the teacher’s temperature is increased until a certain point. Then the student is trained to copy its teacher’s soft probabilities.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>labrador</th>
+      <th>cow</th>
+      <th>golden retriever</th>
+      <th>moto</th>
+      <th>bike</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>hard targets</td>
+    </tr>
+    <tr>
+      <td>0.8</td>
+      <td>10^-5</td>
+      <td>0.2</td>
+      <td>10^-9</td>
+      <td>10^-9</td>
+      <td>soft targets (T=1)</td>
+    </tr>
+    <tr>
+      <td>0.6</td>
+      <td>10^-2</td>
+      <td>0.45</td>
+      <td>10^-4</td>
+      <td>10^-4</td>
+      <td>soft targets (T»1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="benefits">Benefits</h2>
+
+<p>Training on soft targets has several advantages: more information can be extracted from a single sample, training can be done on fewer examples, no need for labeled data</p>
+
+<p>The softmax of a multi-class classifier will give you higher probabilities for similar images. A rose may have similar soft probabilities with a tulip rather than a labrador. Similarly, two different classes are present in the same image, we might see it on the output. So <strong>more information</strong> are extracted from each training sample.</p>
+
+<p>This is a consequence from the first point, the model can be trained on fewer training examples than the teacher. The learning is also <strong>faster</strong> because there are more constraints on the student. It needs to target multiple (soft) outputs rather than a single (hard) one.</p>
+
+<p>Since the student learns from soft targets only, by relative similarities between classes, it can be trained on a <strong>unlabelled dataset</strong>, using only the master has an on-fly “soft labeler”. But in practice, the dataset can be the same as the teacher.</p>
+
+<h2 id="loss">Loss</h2>
+
+<p>Distillation loss is generally in two forms: matching function values, matching derivatives or both, corresponding to a regression problem with different orders:</p>
+
+<ul>
+  <li>
+    <p>Matching function values: tries to minimize the difference between the predictions of the teacher and the student. For a classification task, this is done by using classical cross entropy.</p>
+  </li>
+  <li>
+    <p>Matching derivatives: tries to match the values <em>and</em> the derivatives. This is a more efficient approach than before because here we can have full access to the teacher and we are able to measure the impacts of small variations in its inputs.</p>
+  </li>
+</ul>
+
+<p>We can also try to increase the influence of the prediction by adding directly the hard loss:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alpha ~= 0.1
+KD_loss = alpha * log_loss(y_true, softmax(logits)) + logloss(y_true, softmax(logits/temperature))
+</code></pre></div></div>
+
+<p>You can see a cool <a href="https://github.com/Ujjwal-9/Knowledge-Distillation/blob/master/knowledge_distillation_for_mobilenet.ipynb">implementation</a> here.</p>
+
+<h3 id="resources">Resources</h3>
+
+<ul>
+  <li>
+    <p><a href="https://www.youtube.com/watch?v=EK61htlw8hY?t=650">TTIC Geoffrey Hilton - Dark Knowledge</a> - presentation by the author of the first <a href="https://arxiv.org/pdf/1503.02531v1.pdf">Knowledge Distillation paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.youtube.com/watch?v=oQr0gODUiZo">IEE Security Symposium, Papernot</a>:
+Note that the distillation as a counter measure for adversarial examples has been proven to be not effective anymore.</p>
+  </li>
+</ul>
+
+<hr />
+
+  </div><a class="u-url" href="/blog/2018/11/22/knowledge-distillation.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
