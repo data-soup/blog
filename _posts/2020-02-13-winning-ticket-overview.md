@@ -3,11 +3,20 @@ title: "Overview of One Year of Lottery Ticket Research"
 date: 2020-02-13T22:39:28+02:00
 draft: false
 layout: post
+description: Going through some winning tickets papers, in the chronological order.
+comments: true
 ---
 
-Winning tickets were [discovered in March 2018](https://arxiv.org/abs/1803.03635) and presented at ICRL the same year. It drawed a lot of attention. It sheds light on yet unknown underlying properties of neural networks and seems to be one of the keys for faster training and smaller models. Overall flipping on the head how we approach neural net architecture design. 
+Winning tickets were [discovered in March 2018](https://arxiv.org/abs/1803.03635) and presented at ICRL the same year. It drawed a lot of attention. It sheds light on yet unknown underlying properties of neural networks and seems to be one of the keys for faster training and smaller models. Overall flipping on the head how we approach neural net architecture design.
 
-Winning tickets in deep learning were mentioned as one of the most important topics of 2019 by Lex Fridman's in his [Deep Learning State of the Art 2020](https://youtu.be/0VH1Lim8gL8?t=2761) (awesome) lecture. This article aims at summarizing what I understood after reading about it. Hope you'll enjoy it.
+Winning tickets in deep learning were mentioned as one of the most important topics of 2019 by Lex Fridman's in his [Deep Learning State of the Art 2020](https://youtu.be/0VH1Lim8gL8?t=2761) (awesome) lecture:
+
+
+<div align="center">
+  <a href="hhttps://youtu.be/0VH1Lim8gL8?t=2761"><img src="https://img.youtube.com/vi/0VH1Lim8gL8/0.jpg" alt="Lex's presentation"></a>
+</div>
+
+This article aims at summarizing what I understood after reading about it. Hope you'll enjoy it. TLDR below.
 
 # Pruning
 
@@ -32,7 +41,7 @@ They found that we can train a pruned model again after re-initializing the weig
 
 ```
 1. Randomly initialize a neural network [with weights θ0]
-2. Train the network for j iterations, arriving at parameters θj 
+2. Train the network for j iterations, arriving at parameters θj
 3. Prune [by magnitude] p% of the parameters in θj , creating a mask m
 4. Reset the remaining parameters to their values in θ0
 5. Goto 2
@@ -45,7 +54,7 @@ If the subnetwork produced by this technique matches the original network's perf
 - [red] Same as the orange line without step 5
 - [green] Same as blue without step 5
 
-![Figure 4-b of 803.03635]({{ site.baseurl }}/images/winning-ticket/figure4-b.png)
+![Figure 4-b of 803.03635]({{ site.baseurl }}/images/winning-ticket/figure4-b.png "Figure 4-b - arxiv.org/abs/1803.03635")
 
  We can see that step 4 is the key as the green and blue lines are consistently performing better and are trained faster than randomly re-initialized networks. They also found similar results with convolutional networks like VGG and ResNet on MNIST and CIFAR10 (there are *many* more details in the [original paper](https://arxiv.org/abs/1803.03635)).
 
@@ -59,7 +68,7 @@ But the method above seems to struggle against deeper networks. In a [follow-up 
 
 The graph below plot performances against different levels of sparsity of deep models rewound (iteration at which we reset the weights) with different values. We can see that rewinding at iteration 0 does not perform better than the original network whereas rewinding at higher iteration does:
 
-![]({{ site.baseurl }}/images/winning-ticket/figure8-followup.png)
+![]({{ site.baseurl }}/images/winning-ticket/figure8-followup.png "Figure 8 - arxiv.org/abs/1903.01611")
 
 Those deeper models were resisting the winning ticket recipe above but found something interesting after looking at their *stability*:
 
@@ -69,7 +78,7 @@ subnetwork trained in isolation and the weights of the same subnetwork when trai
 
 The table below shows stability for different networks. *Warmup* means that the learning rate is scheduled to increase slowly during training, possibly reducing the noise of the optimizer. *IMP* is the original recipe to generate winning tickets:
 
-![]({{ site.baseurl }}/images/winning-ticket/figure3-followup.png)
+![]({{ site.baseurl }}/images/winning-ticket/figure3-followup.png "Figure 3 - arxiv.org/abs/1903.01611")
 
 We can see that IMP fails at fiding winning tickets in deeper networks without changing the learning rate. We can also see that there's a link between performances and the stabilities measures. "Winning tickets are more stable than the random subnetworks".
 
@@ -77,11 +86,11 @@ We can see that IMP fails at fiding winning tickets in deeper networks without c
 
 # What about other domains?
 
-So far winning tickets have been tested on the same datasets and on computer vision tasks. One can ask if this isn't just drastic overfitting or if the winning tickets transfer at all. 
+So far winning tickets have been tested on the same datasets and on computer vision tasks. One can ask if this isn't just drastic overfitting or if the winning tickets transfer at all.
 
 Facebook [published a paper](https://arxiv.org/abs/1906.02773) (June 2019) tested the winning ticket evaluation and transfer across six visual datasets. For instance, testing generating winning tickets on ImageNet and testing it others (like CIFAR-100):
 
-![figure 4-e of 1906.02773]({{ site.baseurl }}/images/winning-ticket/figure4-e.png)
+![figure 4-e of 1906.02773]({{ site.baseurl }}/images/winning-ticket/figure4-e.png "Figure 4e - arxiv.org/abs/1906.02773")
 
 They observed that winning tickets generalize across all datasets with (at least) close performances than the original one. And that winning tickets generated on larger datasets generalized better than the other ones, probably due to the number of classes in the original model. Finally, this paper also tested the transfer successfully across different optimizers successfully.
 
@@ -94,7 +103,7 @@ What about other tasks than image classification? Facebook [published in paralle
 # TLDR
 - Many neural networks are over-parameterized
 - Frankle & Carbin found simple algorithm to find smaller network within larger ones
-- Those sub-networks are trainable from scratch and can perform at least as well and often better 
+- Those sub-networks are trainable from scratch and can perform at least as well and often better
 - What makes winning tickets special is still unclear but seems to be a critical step toward a deeper understanding of the underlying properties of neural nets
 
 -----

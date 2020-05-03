@@ -3,11 +3,12 @@ title: "What is Knowledge Distillation?"
 date: 2018-11-22T16:37:55+03:00
 draft: false
 layout: post
+description: A quick introduction on making models smaller.
 ---
 
 Knowledge distillation is a fascinating concept, we'll cover briefly why we need it, how it works.
 
-## ⚖️ Weight Matters
+## Weight Matters
 
 Today's models can be quite large, here are some of the top models for the ImageNet dataset:
 
@@ -33,7 +34,7 @@ In the end a model can have great score at training time, but we might want to: 
 
 Training a smaller model from a larger one is called knowledge distillation.
 
-## 🧪 Distillation
+## Distillation
 
 The authors continue that we are identifying knowledge with the values of the weights which makes it "hard to see how we can change the form of the model but keep the same knowledge". And remind us that we can see knowledge as a mapping from input to output.
 
@@ -75,7 +76,7 @@ Distillation loss is generally in two forms: matching function values, matching 
 
 We can also try to increase the influence of the prediction by adding directly the hard loss:
 
-```
+```python
 alpha ~= 0.1
 KD_loss = alpha * log_loss(y_true, softmax(logits)) + logloss(y_true, softmax(logits/temperature))
 ```
@@ -88,6 +89,3 @@ You can see a cool [implementation](https://github.com/Ujjwal-9/Knowledge-Distil
 
 - [IEE Security Symposium, Papernot](https://www.youtube.com/watch?v=oQr0gODUiZo):
 Note that the distillation as a counter measure for adversarial examples has been proven to be not effective anymore.
-
-
-----

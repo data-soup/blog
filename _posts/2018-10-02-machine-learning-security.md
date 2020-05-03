@@ -2,6 +2,7 @@
 title: "Machine Learning's Security Layer, an Overview"
 date: 2018-10-02T22:39:28+02:00
 draft: false
+description: Adversarial examples, model theft, privacy.
 layout: post
 ---
 
@@ -33,7 +34,7 @@ So our dog can be misclassified as anything we wish with any arbitrary accuracy.
 It has been shown that it works in the physical world too, for instance, if we [print](https://arxiv.org/abs/1607.02533) them. A famous example is tricking a car's sensor to see
 a speed limit instead of a STOP sign. The output of a model can be manipulated into making to some extent, a desired decision or at generating unhandled behavior by the application that relies on it.
 
-![https://arxiv.org/pdf/1602.02697.pdf page 3]({{ site.baseurl }}/images/ml-sec/street-signs.jpg )
+![https://arxiv.org/pdf/1602.02697.pdf page 3]({{ site.baseurl }}/images/ml-sec/street-signs.jpg "arxiv.org/abs/1602.02697")
 
 By the end of 2017 some showed that modifying one pixel can be enough in some cases. If you want to know more about this you can read
 the paper [One pixel attack for fooling deep neural networks](https://arxiv.org/abs/1710.08864), enjoy a high-level presentation by
@@ -98,13 +99,13 @@ Trying to rebuild someone's else model or retrieve data that were used to train 
 
 We'll summarize briefly the [Black Box Attacks](https://arxiv.org/abs/1602.02697) by Nicolas Papernot et al. If you want to dig this subject you might enjoy reading it. The main idea described here is to create a local substitute neural network trained with a substitute dataset crafted by the adversary. Then, using gradient-based techniques adversarial examples can be generated.
 
-<img src="{{ site.baseurl }}/images/ml-sec/flowchart-black-box-attack.png">
+<img src="{{ site.baseurl }}/images/ml-sec/flowchart-black-box-attack.png" "Figure 3 - arxiv.org/abs/1602.02697">
 
 There's no need for a labeled dataset, which can be expensive to produce. The substitute dataset is labeled using the remote DNN's output.
 Then the local dataset is locally augmented through a technique called *Jacobian-based Dataset Augmentation*.
 Here is a pseudo code describing the Jacobian data augmentation (full code available on [github](https://github.com/tensorflow/cleverhans/blob/023c3061f073e09204285949c85122da42e43d63/cleverhans/attacks_tf.py)).
 
-```
+```python
 def jacobian_augmentation(dataset):
   """
   - get_label: API call on the remote oracle
@@ -140,7 +141,7 @@ Poisoning 3% of a training set managed to drop the test accuracy by 11% ([Certif
 
 Label flipping attack the objective is to maximize the loss function if a subset of the training example's label is flipped, this is basically done by gradient ascent:
 
-<img src="{{ site.baseurl }}/images/ml-sec/clean-label-attack.png" alt="Ali Shafahi et al. 2018 (Figure 1-b)" width="400">
+![]({{ site.baseurl }}/images/ml-sec/clean-label-attack.png "Figure 1b - arxiv.org/abs/1706.03691")
 
 > An attacker first chooses a target instance from the test set; a successful poisoning attack causes this target example to be misclassified during test time. Next, the attacker samples a base instance from the base class, and makes imperceptible changes to it to craft a poison instance; this poison is injected into the training data with the intent of fooling the model into labeling the target instance with the base label at test time. Finally, the model is trained on the poisoned dataset (clean dataset + poison instances). If during test time the model mistakes the target instance as being in the base class, then the poisoning attack is considered successful
 > [Poison Frogs! Targeted Clean-Label Poisoning Attacks on Neural Networks](https://arxiv.org/pdf/1804.00792.pdf)
@@ -150,13 +151,13 @@ Label flipping attack the objective is to maximize the loss function if a subset
 
 ### Fully homomorphic encryption
 
-![Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25]({{ site.baseurl }}/images/ml-sec/fhe-neuralnetwork.png)
+![Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25]({{ site.baseurl }}/images/ml-sec/fhe-neuralnetwork.png "Figure 6.1 - eprint.iacr.org/2017/1114.pdf")
 
 Fully homomorphic encryption is an encryption scheme that preserves the operation on data through encryption and decryption function. If the scheme is preserved over the addition, encrypting a sum or summing the encrypted members will give the same result.
 This means that you can encrypt your data locally and send it to a server, let it do a job using only the supported operators and return you the encrypted result. You don't need to trust the server since it won't understand what it is manipulating.
 
 Let `ENC` and `DEC` the encryption and decryption function respectively:
-```
+```python
 ENC(X1 + X2) = ENC(X1) + ENC(X2) (homomorphism)
 Since X1 + X2 = DEC(ENC(X1+ X2))
 We have X1 + X2 = DEC(ENC(X1) + ENC(X2))
@@ -177,5 +178,3 @@ It is also possible to recover the data used  at training by simply looking at t
 > given  a  data  record  and  black-box  access  to a  model,  determine  if  the  record  was  in  the  model’s  training dataset. To perform membership inference against a target model, we make adversarial use of machine learning and train our own inference  model  to  recognize  differences  in  the  target  model’s predictions  on  the  inputs  that  it  trained  on  versus  the  inputs that  it  did  not  train  on.
 
 An implementation can be found [here](https://github.com/csong27/membership-inference).
-
-----
