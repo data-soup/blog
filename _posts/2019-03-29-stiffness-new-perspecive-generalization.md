@@ -1,5 +1,5 @@
 ---
-title: "Paper Summary. Stiffness: A New Perspective on Generalization in Neural Networks"
+title: "Paper Summary: Stiffness, A New Perspective on Generalization in Neural Networks"
 date: 2019-03-29T00:00:55+03:00
 draft: False
 layout: post
