@@ -7,30 +7,30 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="What is Knowledge Distillation?" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
-<meta property="og:description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<meta name="description" content="A quick introduction on making models smaller." />
+<meta property="og:description" content="A quick introduction on making models smaller." />
 <link rel="canonical" href="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
 <meta property="og:url" content="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
 <meta property="og:site_name" content="data soup" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-22T07:37:55-06:00" />
 <script type="application/ld+json">
-{"description":"Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","@context":"https://schema.org"}</script>
+{"description":"A quick introduction on making models smaller.","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"@type":"BlogPosting","url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>What is Knowledge Distillation? | data soup</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="What is Knowledge Distillation?" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
-<meta property="og:description" content="Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works." />
+<meta name="description" content="A quick introduction on making models smaller." />
+<meta property="og:description" content="A quick introduction on making models smaller." />
 <link rel="canonical" href="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
 <meta property="og:url" content="https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html" />
 <meta property="og:site_name" content="data soup" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-22T07:37:55-06:00" />
 <script type="application/ld+json">
-{"description":"Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","@context":"https://schema.org"}</script>
+{"description":"A quick introduction on making models smaller.","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html"},"@type":"BlogPosting","url":"https://data-soup.github.io/blog/2018/11/22/knowledge-distillation.html","headline":"What is Knowledge Distillation?","dateModified":"2018-11-22T07:37:55-06:00","datePublished":"2018-11-22T07:37:55-06:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -77,7 +77,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/about/">About</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -85,7 +85,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">What is Knowledge Distillation?</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-11-22T07:37:55-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">What is Knowledge Distillation?</h1><p class="page-description">A quick introduction on making models smaller.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-11-22T07:37:55-06:00" itemprop="datePublished">
         Nov 22, 2018
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -102,7 +102,7 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <p>Knowledge distillation is a fascinating concept, we’ll cover briefly why we need it, how it works.</p>
 
-<h2 id="️-weight-matters">⚖️ Weight Matters</h2>
+<h2 id="weight-matters">Weight Matters</h2>
 
 <p>Today’s models can be quite large, here are some of the top models for the ImageNet dataset:</p>
 
@@ -165,7 +165,7 @@ window.onload = wrap_img;
 
 <p>Training a smaller model from a larger one is called knowledge distillation.</p>
 
-<h2 id="-distillation">🧪 Distillation</h2>
+<h2 id="distillation">Distillation</h2>
 
 <p>The authors continue that we are identifying knowledge with the values of the weights which makes it “hard to see how we can change the form of the model but keep the same knowledge”. And remind us that we can see knowledge as a mapping from input to output.</p>
 
@@ -245,8 +245,8 @@ window.onload = wrap_img;
 
 <p>We can also try to increase the influence of the prediction by adding directly the hard loss:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alpha ~= 0.1
-KD_loss = alpha * log_loss(y_true, softmax(logits)) + logloss(y_true, softmax(logits/temperature))
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alpha</span> <span class="o">~=</span> <span class="mf">0.1</span>
+<span class="n">KD_loss</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">))</span> <span class="o">+</span> <span class="n">logloss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="o">/</span><span class="n">temperature</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p>You can see a cool <a href="https://github.com/Ujjwal-9/Knowledge-Distillation/blob/master/knowledge_distillation_for_mobilenet.ipynb">implementation</a> here.</p>
@@ -262,8 +262,6 @@ KD_loss = alpha * log_loss(y_true, softmax(logits)) + logloss(y_true, softmax(lo
 Note that the distillation as a counter measure for adversarial examples has been proven to be not effective anymore.</p>
   </li>
 </ul>
-
-<hr />
 
   </div><a class="u-url" href="/blog/2018/11/22/knowledge-distillation.html" hidden></a>
 </article>
@@ -284,11 +282,11 @@ Note that the distillation as a counter measure for adversarial examples has bee
         </p>
       </div>
       <div class="footer-col">
-        <p>🍜</p>
+        <p>drinking this data soup sip by sip 🍜</p>
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/maxpv" title="maxpv"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/maxenceprevost" title="maxenceprevost"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li></ul>
 </div>
 
   </div>

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://data-soup.github.io/blog/2018/04/20/Parkinson-Telemonitoring-Regression-with-Keras.html</loc>
+<lastmod>2018-04-20T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html</loc>
 <lastmod>2018-10-02T15:39:28-05:00</lastmod>
 </url>
 <url>
-<loc>https://data-soup.github.io/blog/jupyter/2018/10/16/Adversarial-Resnet50.html</loc>
+<loc>https://data-soup.github.io/blog/2018/10/16/Adversarial-Resnet50.html</loc>
 <lastmod>2018-10-16T00:00:00-05:00</lastmod>
 </url>
 <url>
@@ -35,5 +39,9 @@
 </url>
 <url>
 <loc>https://data-soup.github.io/blog/categories/</loc>
+</url>
+<url>
+<loc>https://data-soup.github.io/blog/CV/Maxence%20-%20Resume.pdf</loc>
+<lastmod>2020-05-03T05:52:43-05:00</lastmod>
 </url>
 </urlset>

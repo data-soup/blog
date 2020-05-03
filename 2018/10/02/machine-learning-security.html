@@ -7,30 +7,30 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Machine Learning’s Security Layer, an Overview" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:" />
-<meta property="og:description" content="This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:" />
+<meta name="description" content="Adversarial examples, model theft, privacy." />
+<meta property="og:description" content="Adversarial examples, model theft, privacy." />
 <link rel="canonical" href="https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html" />
 <meta property="og:url" content="https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html" />
 <meta property="og:site_name" content="data soup" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-10-02T15:39:28-05:00" />
 <script type="application/ld+json">
-{"description":"This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:","headline":"Machine Learning’s Security Layer, an Overview","dateModified":"2018-10-02T15:39:28-05:00","datePublished":"2018-10-02T15:39:28-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html"},"url":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html","@context":"https://schema.org"}</script>
+{"description":"Adversarial examples, model theft, privacy.","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html"},"@type":"BlogPosting","url":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html","headline":"Machine Learning’s Security Layer, an Overview","dateModified":"2018-10-02T15:39:28-05:00","datePublished":"2018-10-02T15:39:28-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Machine Learning’s Security Layer, an Overview | data soup</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Machine Learning’s Security Layer, an Overview" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:" />
-<meta property="og:description" content="This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:" />
+<meta name="description" content="Adversarial examples, model theft, privacy." />
+<meta property="og:description" content="Adversarial examples, model theft, privacy." />
 <link rel="canonical" href="https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html" />
 <meta property="og:url" content="https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html" />
 <meta property="og:site_name" content="data soup" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-10-02T15:39:28-05:00" />
 <script type="application/ld+json">
-{"description":"This is a shallow overview of the security of machine learning systems. Within a few scrolls we’ll go through:","headline":"Machine Learning’s Security Layer, an Overview","dateModified":"2018-10-02T15:39:28-05:00","datePublished":"2018-10-02T15:39:28-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html"},"url":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html","@context":"https://schema.org"}</script>
+{"description":"Adversarial examples, model theft, privacy.","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html"},"@type":"BlogPosting","url":"https://data-soup.github.io/blog/2018/10/02/machine-learning-security.html","headline":"Machine Learning’s Security Layer, an Overview","dateModified":"2018-10-02T15:39:28-05:00","datePublished":"2018-10-02T15:39:28-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -77,7 +77,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/about/">About</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -85,7 +85,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Machine Learning&#39;s Security Layer, an Overview</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-10-02T15:39:28-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Machine Learning&#39;s Security Layer, an Overview</h1><p class="page-description">Adversarial examples, model theft, privacy.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-10-02T15:39:28-05:00" itemprop="datePublished">
         Oct 2, 2018
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -129,7 +129,7 @@ So our dog can be misclassified as anything we wish with any arbitrary accuracy.
 It has been shown that it works in the physical world too, for instance, if we <a href="https://arxiv.org/abs/1607.02533">print</a> them. A famous example is tricking a car’s sensor to see
 a speed limit instead of a STOP sign. The output of a model can be manipulated into making to some extent, a desired decision or at generating unhandled behavior by the application that relies on it.</p>
 
-<p><img src="/blog/images/ml-sec/street-signs.jpg" alt="https://arxiv.org/pdf/1602.02697.pdf page 3" /></p>
+<p><img src="/blog/images/ml-sec/street-signs.jpg" alt="https://arxiv.org/pdf/1602.02697.pdf page 3" title="arxiv.org/abs/1602.02697" /></p>
 
 <p>By the end of 2017 some showed that modifying one pixel can be enough in some cases. If you want to know more about this you can read
 the paper <a href="https://arxiv.org/abs/1710.08864">One pixel attack for fooling deep neural networks</a>, enjoy a high-level presentation by
@@ -210,25 +210,25 @@ an example of a transfer-based attack in the section Model Theft.</p>
 
 <p>We’ll summarize briefly the <a href="https://arxiv.org/abs/1602.02697">Black Box Attacks</a> by Nicolas Papernot et al. If you want to dig this subject you might enjoy reading it. The main idea described here is to create a local substitute neural network trained with a substitute dataset crafted by the adversary. Then, using gradient-based techniques adversarial examples can be generated.</p>
 
-<p><img src="/blog/images/ml-sec/flowchart-black-box-attack.png" /></p>
+<p>&lt;img src=”/blog/images/ml-sec/flowchart-black-box-attack.png” “Figure 3 - arxiv.org/abs/1602.02697”&gt;</p>
 
 <p>There’s no need for a labeled dataset, which can be expensive to produce. The substitute dataset is labeled using the remote DNN’s output.
 Then the local dataset is locally augmented through a technique called <em>Jacobian-based Dataset Augmentation</em>.
 Here is a pseudo code describing the Jacobian data augmentation (full code available on <a href="https://github.com/tensorflow/cleverhans/blob/023c3061f073e09204285949c85122da42e43d63/cleverhans/attacks_tf.py">github</a>).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def jacobian_augmentation(dataset):
-  """
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">jacobian_augmentation</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+  <span class="s">"""
   - get_label: API call on the remote oracle
   - alpha: step size
   - jacobian: returns jacobian matrix of the substitute model
-  """
-  jacobian_dataset = []
-  for sample in dataset:
-    label = get_label(sample)
-    jacobian_sample = sample + alpha*sign(jacobian(substitute_model, label))
-    jacobian_dataset.append(jacobian_sample)
+  """</span>
+  <span class="n">jacobian_dataset</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">get_label</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">jacobian_sample</span> <span class="o">=</span> <span class="n">sample</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="n">sign</span><span class="p">(</span><span class="n">jacobian</span><span class="p">(</span><span class="n">substitute_model</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+    <span class="n">jacobian_dataset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jacobian_sample</span><span class="p">)</span>
 
-  return jacobian_dataset
+  <span class="k">return</span> <span class="n">jacobian_dataset</span>
 </code></pre></div></div>
 
 <p>Basically, each example is augmented by adding a small variation in direction of the gradient.</p>
@@ -251,7 +251,7 @@ Here is a pseudo code describing the Jacobian data augmentation (full code avail
 
 <p>Label flipping attack the objective is to maximize the loss function if a subset of the training example’s label is flipped, this is basically done by gradient ascent:</p>
 
-<p><img src="/blog/images/ml-sec/clean-label-attack.png" alt="Ali Shafahi et al. 2018 (Figure 1-b)" width="400" /></p>
+<p><img src="/blog/images/ml-sec/clean-label-attack.png" alt="" title="Figure 1b - arxiv.org/abs/1706.03691" /></p>
 
 <blockquote>
   <p>An attacker first chooses a target instance from the test set; a successful poisoning attack causes this target example to be misclassified during test time. Next, the attacker samples a base instance from the base class, and makes imperceptible changes to it to craft a poison instance; this poison is injected into the training data with the intent of fooling the model into labeling the target instance with the base label at test time. Finally, the model is trained on the poisoned dataset (clean dataset + poison instances). If during test time the model mistakes the target instance as being in the base class, then the poisoning attack is considered successful
@@ -262,15 +262,15 @@ Here is a pseudo code describing the Jacobian data augmentation (full code avail
 
 <h3 id="fully-homomorphic-encryption">Fully homomorphic encryption</h3>
 
-<p><img src="/blog/images/ml-sec/fhe-neuralnetwork.png" alt="Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25" /></p>
+<p><img src="/blog/images/ml-sec/fhe-neuralnetwork.png" alt="Fast Homomorphic Evaluation of Deep Discretized Neural Networks https://eprint.iacr.org/2017/1114.pdf page 25" title="Figure 6.1 - eprint.iacr.org/2017/1114.pdf" /></p>
 
 <p>Fully homomorphic encryption is an encryption scheme that preserves the operation on data through encryption and decryption function. If the scheme is preserved over the addition, encrypting a sum or summing the encrypted members will give the same result.
 This means that you can encrypt your data locally and send it to a server, let it do a job using only the supported operators and return you the encrypted result. You don’t need to trust the server since it won’t understand what it is manipulating.</p>
 
 <p>Let <code class="highlighter-rouge">ENC</code> and <code class="highlighter-rouge">DEC</code> the encryption and decryption function respectively:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENC(X1 + X2) = ENC(X1) + ENC(X2) (homomorphism)
-Since X1 + X2 = DEC(ENC(X1+ X2))
-We have X1 + X2 = DEC(ENC(X1) + ENC(X2))
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ENC</span><span class="p">(</span><span class="n">X1</span> <span class="o">+</span> <span class="n">X2</span><span class="p">)</span> <span class="o">=</span> <span class="n">ENC</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span> <span class="o">+</span> <span class="n">ENC</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span> <span class="p">(</span><span class="n">homomorphism</span><span class="p">)</span>
+<span class="n">Since</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">(</span><span class="n">ENC</span><span class="p">(</span><span class="n">X1</span><span class="o">+</span> <span class="n">X2</span><span class="p">))</span>
+<span class="n">We</span> <span class="n">have</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">(</span><span class="n">ENC</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span> <span class="o">+</span> <span class="n">ENC</span><span class="p">(</span><span class="n">X2</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p>If you would need to follow one person in this field, it would be <a href="https://researcher.watson.ibm.com/researcher/view.php?person=us-cbgentry">Craig Gentry</a>. He found the first FHE scheme in 2009.</p>
@@ -292,8 +292,6 @@ Unless… If we’re talking about an FH encrypted machine learning model trying
 
 <p>An implementation can be found <a href="https://github.com/csong27/membership-inference">here</a>.</p>
 
-<hr />
-
   </div><a class="u-url" href="/blog/2018/10/02/machine-learning-security.html" hidden></a>
 </article>
       </div>
@@ -313,11 +311,11 @@ Unless… If we’re talking about an FH encrypted machine learning model trying
         </p>
       </div>
       <div class="footer-col">
-        <p>🍜</p>
+        <p>drinking this data soup sip by sip 🍜</p>
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/maxpv" title="maxpv"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/maxenceprevost" title="maxenceprevost"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li></ul>
 </div>
 
   </div>
