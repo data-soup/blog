@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Managing experiments with one file | data soup</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Managing experiments with one file" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Presenting an experiment manager contained in one file for tf.keras" />
+<meta property="og:description" content="Presenting an experiment manager contained in one file for tf.keras" />
+<link rel="canonical" href="https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html" />
+<meta property="og:site_name" content="data soup" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-03T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Presenting an experiment manager contained in one file for tf.keras","@type":"BlogPosting","headline":"Managing experiments with one file","dateModified":"2020-08-03T00:00:00-05:00","datePublished":"2020-08-03T00:00:00-05:00","url":"https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Managing experiments with one file | data soup</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Managing experiments with one file" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Presenting an experiment manager contained in one file for tf.keras" />
+<meta property="og:description" content="Presenting an experiment manager contained in one file for tf.keras" />
+<link rel="canonical" href="https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html" />
+<meta property="og:url" content="https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html" />
+<meta property="og:site_name" content="data soup" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-03T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Presenting an experiment manager contained in one file for tf.keras","@type":"BlogPosting","headline":"Managing experiments with one file","dateModified":"2020-08-03T00:00:00-05:00","datePublished":"2020-08-03T00:00:00-05:00","url":"https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://data-soup.github.io/blog/2020/08/03/managing-ml-experiments-with-one-file.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://data-soup.github.io/blog/feed.xml" title="data soup" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">data soup</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Managing  experiments with one file</h1><p class="page-description">Presenting an experiment manager contained in one file for `tf.keras`</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-08-03T00:00:00-05:00" itemprop="datePublished">
+        Aug 3, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/data-soup/blog/tree/master/_notebooks/2020-08-03-managing-ml-experiments-with-one-file.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/data-soup/blog/blob/master/_notebooks/2020-08-03-managing-ml-experiments-with-one-file.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-08-03-managing-ml-experiments-with-one-file.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's say you want to test different hyperparameters on a given model:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dense</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'conv_0'</span><span class="p">],</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">'kernel_0'</span><span class="p">],</span>
+                  <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span>
+                  <span class="n">input_shape</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">'input_shape'</span><span class="p">]))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'conv_1'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">'kernel_1'</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">'pool_size'</span><span class="p">]))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'dropout_0'</span><span class="p">]))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'dense'</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'dropout_1'</span><span class="p">]))</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'num_classes'</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'softmax'</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We then feed the <code>get_model</code> function with something like this:</p>
+
+<pre><code>'model': {
+    'input_shape': (28, 28, 1),
+    'conv_0': 32,
+    'conv_1': 64,
+    'kernel_0': (3,3),
+    'kernel_1': (3,3),
+    'pool_size': (2,2),
+    'dropout_0': 0.25,
+    'dense': 128,
+    'dropout_1': 0.5,
+    'num_classes': 10
+}</code></pre>
+<p>The <a href="https://github.com/maxpv/experiment_manager">experiment manager</a>, is here to automatically keep a tidy model checkpoints, performance files for your hyperparameter search. It's doing so by maintaining a consistent folder hierarchy based on the hash of your hyperparameters.</p>
+<p>Let's see a real example, by defining our hyperparameters. We choose here (but you can do what you want) to separate them into two sections:</p>
+<ul>
+<li>
+<code>training</code> which contains the parameters such as the batch size, the selected optimizer, ...</li>
+<li>
+<code>model</code>  which contains the parameters that actually build your model</li>
+</ul>
+<p>Note that you can create as many section as you want and use as much nested dictionary as necessary.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'debug'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'training'</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">'batch_size'</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+      <span class="s1">'epochs'</span><span class="p">:</span> <span class="mi">3</span>  
+    <span class="p">},</span>
+    <span class="s1">'model'</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">'input_shape'</span><span class="p">:</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+      <span class="s1">'conv_0'</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+      <span class="s1">'conv_1'</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+      <span class="s1">'kernel_0'</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+      <span class="s1">'kernel_1'</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+      <span class="s1">'pool_size'</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+      <span class="s1">'dropout_0'</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+      <span class="s1">'dense'</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+      <span class="s1">'dropout_1'</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+      <span class="s1">'num_classes'</span><span class="p">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s1">'comment'</span><span class="p">:</span> <span class="s1">'simple model from keras documentation'</span><span class="p">,</span>
+    <span class="s1">'author'</span><span class="p">:</span> <span class="s1">'data-soup'</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+<span class="o">!</span>sudo apt-get install tree # usefull later to display the directories
+
+<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+
+<span class="c1"># the data, split between train and test sets</span>
+<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float32'</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float32'</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">/=</span> <span class="mi">255</span>
+<span class="n">x_test</span> <span class="o">/=</span> <span class="mi">255</span>
+
+<span class="c1"># convert class vectors to binary class matrices</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># input image dimensions</span>
+<span class="n">img_rows</span><span class="p">,</span> <span class="n">img_cols</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">'model'</span><span class="p">][</span><span class="s1">'input_shape'</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img_rows</span><span class="p">,</span> <span class="n">img_cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img_rows</span><span class="p">,</span> <span class="n">img_cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_rows</span><span class="p">,</span> <span class="n">img_cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following package was automatically installed and is no longer required:
+  libnvidia-common-440
+Use 'sudo apt autoremove' to remove it.
+The following NEW packages will be installed:
+  tree
+0 upgraded, 1 newly installed, 0 to remove and 39 not upgraded.
+Need to get 40.7 kB of archives.
+After this operation, 105 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/universe amd64 tree amd64 1.7.0-5 [40.7 kB]
+Fetched 40.7 kB in 0s (112 kB/s)
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 76, &lt;&gt; line 1.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+dpkg-preconfigure: unable to re-open stdin: 
+Selecting previously unselected package tree.
+(Reading database ... 144579 files and directories currently installed.)
+Preparing to unpack .../tree_1.7.0-5_amd64.deb ...
+Unpacking tree (1.7.0-5) ...
+Setting up tree (1.7.0-5) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+11493376/11490434 [==============================] - 0s 0us/step
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+<span class="c1"># Here lives the code for the experiement manager</span>
+<span class="o">!</span>git clone https://github.com/maxpv/experiment_manager
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Cloning into 'experiment_manager'...
+remote: Enumerating objects: 24, done.
+remote: Counting objects: 100% (24/24), done.
+remote: Compressing objects: 100% (23/23), done.
+remote: Total 24 (delta 7), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (24/24), done.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now prepare the <code>ExperimentManager</code> for a first test run.</p>
+<ul>
+<li>
+<code>exp_base_dir</code> is the name of your experiment, can be the version of <code>get_model</code> or anything else</li>
+<li>
+<code>monitored_param_keys</code> will manage your experiments based on those keys</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">experiment_manager.experiment_manager</span> <span class="kn">import</span> <span class="n">ExperimentManager</span>
+<span class="n">expm</span> <span class="o">=</span> <span class="n">ExperimentManager</span><span class="p">(</span><span class="n">exp_base_dir</span><span class="o">=</span><span class="s1">'experiments'</span><span class="p">,</span> 
+      <span class="n">monitored_param_keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'training'</span><span class="p">,</span> <span class="s1">'model'</span><span class="p">])</span>
+<span class="n">callbacks</span> <span class="o">=</span> <span class="n">expm</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">'categorical_crossentropy'</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span>
+          <span class="o">**</span><span class="n">params</span><span class="p">[</span><span class="s1">'training'</span><span class="p">],</span>
+          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="p">,</span> 
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Now everything is happening in /content/experiments/exp--72399506-44712951/run--20-09-04--16-11
+Epoch 1/3
+40/40 [==============================] - 17s 416ms/step - loss: 0.8887 - accuracy: 0.7264 - val_loss: 0.3282 - val_accuracy: 0.9063
+Epoch 2/3
+40/40 [==============================] - 17s 413ms/step - loss: 0.3505 - accuracy: 0.8956 - val_loss: 0.1944 - val_accuracy: 0.9412
+Epoch 3/3
+40/40 [==============================] - 17s 414ms/step - loss: 0.2214 - accuracy: 0.9364 - val_loss: 0.1378 - val_accuracy: 0.9564
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;tensorflow.python.keras.callbacks.History at 0x7f9925c67780&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The training above generated:</p>
+<ol>
+<li>a tree structure for each experiment under a specific identifier and the current date</li>
+<li>callbacks for tf.keras to ensure that training logs and model checkpoints are written in the same directory</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>tree experiments
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>experiments
+└── exp--72399506-44712951
+    └── run--20-09-04--16-11
+        ├── hyperparameters.json
+        ├── models
+        │   ├── model.01-0.3282.hdf5
+        │   ├── model.02-0.1944.hdf5
+        │   └── model.03-0.1378.hdf5
+        ├── performances.json
+        └── training-logs.csv
+
+3 directories, 6 files
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's launch another run using the same parameters.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">callbacks</span> <span class="o">=</span> <span class="n">expm</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">'categorical_crossentropy'</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span>
+          <span class="o">**</span><span class="n">params</span><span class="p">[</span><span class="s1">'training'</span><span class="p">],</span>
+          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Now everything is happening in /content/experiments/exp--72399506-44712951/run--20-09-04--16-12
+Epoch 1/3
+40/40 [==============================] - 17s 417ms/step - loss: 0.8838 - accuracy: 0.7252 - val_loss: 0.3311 - val_accuracy: 0.8998
+Epoch 2/3
+40/40 [==============================] - 17s 413ms/step - loss: 0.3274 - accuracy: 0.9008 - val_loss: 0.1808 - val_accuracy: 0.9466
+Epoch 3/3
+40/40 [==============================] - 17s 414ms/step - loss: 0.1997 - accuracy: 0.9396 - val_loss: 0.1402 - val_accuracy: 0.9570
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;tensorflow.python.keras.callbacks.History at 0x7f9922ce9fd0&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>tree experiments -d
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>experiments
+└── exp--72399506-44712951
+    ├── run--20-09-04--16-11
+    │   └── models
+    └── run--20-09-04--16-12
+        └── models
+
+5 directories
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see what happens if we change the model parameters:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">params</span><span class="p">[</span><span class="s1">'model'</span><span class="p">][</span><span class="s1">'conv_1'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">callbacks</span> <span class="o">=</span> <span class="n">expm</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">'categorical_crossentropy'</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">5000</span><span class="p">],</span>
+          <span class="o">**</span><span class="n">params</span><span class="p">[</span><span class="s1">'training'</span><span class="p">],</span>
+          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Now everything is happening in /content/experiments/exp--72399506-20411437/run--20-09-04--16-13
+Epoch 1/3
+40/40 [==============================] - 11s 272ms/step - loss: 1.0456 - accuracy: 0.6842 - val_loss: 0.3508 - val_accuracy: 0.9021
+Epoch 2/3
+40/40 [==============================] - 11s 267ms/step - loss: 0.3753 - accuracy: 0.8862 - val_loss: 0.2358 - val_accuracy: 0.9300
+Epoch 3/3
+40/40 [==============================] - 11s 268ms/step - loss: 0.2736 - accuracy: 0.9168 - val_loss: 0.1867 - val_accuracy: 0.9423
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;tensorflow.python.keras.callbacks.History at 0x7f9922b7d2e8&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>tree experiments -d
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>experiments
+├── exp--72399506-20411437
+│   └── run--20-09-04--16-13
+│       └── models
+└── exp--72399506-44712951
+    ├── run--20-09-04--16-11
+    │   └── models
+    └── run--20-09-04--16-12
+        └── models
+
+8 directories
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/2020/08/03/managing-ml-experiments-with-one-file.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>drinking this data soup sip by sip 🍜</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/maxpv" title="maxpv"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/maxenceprevost" title="maxenceprevost"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
